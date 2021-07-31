@@ -12,7 +12,7 @@ router.get('/:id', getPlayerById);
 router.put('/:id', editPlayer);
 router.delete('/:id', delPlayer);
 
-router.get('/transfers/', getTransfer);
+router.get('/transfers/show', getTransfer);
 router.post('/transfers/new', newTransfer);
 router.delete('/transfers/:id', delTransfer);
 
