@@ -3,9 +3,11 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import express from 'express';
 import Routes from './routes/route.js';
+import helmet from 'helmet'
 const app = express();
 
 dotenv.config();
+app.use(helmet())
 app.use(express.json({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
