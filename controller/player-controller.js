@@ -23,6 +23,7 @@ export const addPlayer = async (req, res) => {
 
 export const getPlayerById = async (req, res) => {
   try {
+    console.log(req.params.id)
     const player = await PlayerModel.findById(req.params.id);
     res.status(200).json(player);
   } catch (error) {
