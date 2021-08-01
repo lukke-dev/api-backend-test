@@ -23,7 +23,6 @@ export const addPlayer = async (req, res) => {
 
 export const getPlayerById = async (req, res) => {
   try {
-    console.log(req.params.id)
     const player = await PlayerModel.findById(req.params.id);
     res.status(200).json(player);
   } catch (error) {
@@ -53,4 +52,12 @@ export const delPlayer = async (req, res) => {
   }
 };
 
-export const getPlayerByName = () => {};
+export const getPlayerByName = async (req, res) => {
+  const {playerName} = req.body
+  try {
+    const player = await PlayerModel.findOne({playerName: `${playerName}`});
+    res.status(200).json(player);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
