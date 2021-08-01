@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', getPlayer);
 router.post('/add', addPlayer);
-router.get('/find/', getPlayerByName);
+router.get('/name/:name', getPlayerByName);
 router.get('/find/:id', getPlayerById);
 router.put('/:id', editPlayer);
 router.delete('/:id', delPlayer);

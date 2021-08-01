@@ -30,6 +30,16 @@ export const getPlayerById = async (req, res) => {
   }
 };
 
+export const getPlayerByName = async (req, res) => {
+  try {
+    const player = await PlayerModel.findOne({playerName: `${req.params.name}`});
+    res.status(200).json(player);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+
 export const editPlayer = async (req, res) => {
   let player = await PlayerModel.findById(req.params.id);
   player = req.body;
@@ -52,12 +62,3 @@ export const delPlayer = async (req, res) => {
   }
 };
 
-export const getPlayerByName = async (req, res) => {
-  const {playerName} = req.body
-  try {
-    const player = await PlayerModel.findOne({playerName: `${playerName}`});
-    res.status(200).json(player);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
