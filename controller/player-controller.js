@@ -2,8 +2,14 @@ import PlayerModel from '../models/player.js';
 
 export const getPlayer = async (req, res) => {
   try {
-    const players = await PlayerModel.find();
-    res.status(200).json(players);
+    const {page, limit} = req.query
+    if(page && limit){
+      const players = await PlayerModel.find().limit(limit*1).skip((page-1) * limit)
+      res.status(200).json(players);
+    }else {
+      const players = await PlayerModel.find()
+      res.status(200).json(players);
+    }
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

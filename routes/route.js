@@ -5,7 +5,7 @@ import {
 import { getTransfer, newTransfer, delTransfer } from '../controller/transfers-controller.js';
 const router = express.Router();
 
-router.get('/', getPlayer);
+router.get('/:page?', getPlayer);
 router.post('/add', addPlayer);
 router.get('/name/:name', getPlayerByName);
 router.get('/find/:id', getPlayerById);
