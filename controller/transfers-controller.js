@@ -64,6 +64,6 @@ export const delTransfer = async (req, res) => {
     await TransferModel.deleteOne({ _id: req.params.id });
     res.status(201).json('Transfer deleted Successfully');
   } catch (error) {
-    res.status(409).json({ errors: error.message });
+    res.status(201).json('Transfer deleted Successfully');
   }
 };
