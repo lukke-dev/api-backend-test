@@ -39,6 +39,8 @@ export const getPlayerById = async (req, res) => {
 export const getPlayerByName = async (req, res) => {
   try {
     const player = await PlayerModel.findOne({playerName: `${req.params.name}`});
+    console.log(player)
+    if(player === null) ErrorEvent({message:  error.message})
     res.status(200).json(player);
   } catch (error) {
     res.status(404).json({ message: error.message });
