@@ -52,18 +52,25 @@ export const delTransfer = async (req, res) => {
       return res.status(400).json({ errors: ['Transferência não existe'] });
     }
     const {origin, destination, value} = updateCoins
+
     const playerOrigin = await PlayerModel.findOne({ playerName: `${origin}` });
+    if(playerOrigin){
+      const newValueOrigin = playerOrigin.playerCoins + Number(value);
+      await PlayerModel.updateOne({playerName: `${origin}`, }, {playerCoins: `${newValueOrigin}`});
+    }
+
     const playerDestination = await PlayerModel.findOne({
       playerName: `${destination}`
     });
-    const newValueOrigin = playerOrigin.playerCoins + Number(value);
-    const newValueDestination = playerDestination.playerCoins - Number(value);
-    await PlayerModel.updateOne({playerName: `${origin}`, }, {playerCoins: `${newValueOrigin}`});
-    await PlayerModel.updateOne({playerName: `${destination}`, }, {playerCoins: `${newValueDestination}`});
+    if(playerDestination){
+      const newValueDestination = playerDestination.playerCoins - Number(value);
+      await PlayerModel.updateOne({playerName: `${destination}`, }, {playerCoins: `${newValueDestination}`});
+    }
+
 
     await TransferModel.deleteOne({ _id: req.params.id });
     res.status(201).json('Transfer deleted Successfully');
   } catch (error) {
-    res.status(201).json('Transfer deleted Successfully');
+    res.status(201).json({ errors: error.message });
   }
 };
